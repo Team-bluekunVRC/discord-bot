@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13-alpine
+    env_file: .env.development
+
+
+  app:
+    build: ./
+    env_file: .env.development
+    depends_on:
+    - db

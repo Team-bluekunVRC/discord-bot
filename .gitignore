@@ -1,0 +1,9 @@
+# Releases
+dist/
+bin/
+
+# downloaded by make
+.bootstrap
+
+# Go dep
+vendor/
