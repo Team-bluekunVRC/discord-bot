@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine as builder
+FROM golang:1.17-alpine3.14 as builder
 ARG VERSION
 ENV GOCACHE "/go-build-cache"
 WORKDIR /src
@@ -6,7 +6,11 @@ WORKDIR /src
 # Why: Pinning versions in a docker container isn't
 # really worth the effort.
 # hadolint ignore=DL3018
-RUN apk add --no-cache make bash git libc-dev gcc
+RUN apk add --no-cache make bash git libc-dev gcc py3-pip jq openssh \
+  &&  pip3 install yq \
+  &&  git config --global url."https://github.com/".insteadOf git@github.com: \
+  &&  git config --global url."https://".insteadOf git:// \
+  &&  git config --global url."https://".insteadOf ssh://
 
 COPY . .
 
