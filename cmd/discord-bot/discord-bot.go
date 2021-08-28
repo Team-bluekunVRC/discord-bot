@@ -8,6 +8,7 @@ import (
 	"strings"
 	"syscall"
 
+	discordbot "github.com/Team-bluekunVRC/discord-bot/internal/discord-bot"
 	"github.com/getoutreach/gobox/pkg/app"
 	"github.com/sirupsen/logrus"
 	"github.com/tritonmedia/pkg/service"
@@ -46,9 +47,15 @@ func main() {
 		// we set it
 		log.Logger.Formatter = logrus.StandardLogger().Formatter
 
+		// load the configuration
+		conf, err := discordbot.LoadConfig()
+		if err != nil {
+			log.WithError(err).Fatal("failed to load configuration")
+		}
+
 		// start the service runner, which handles context cancellation
 		// and threading
-		r := service.NewServiceRunner(ctx, []service.Service{})
+		r := service.NewServiceRunner(ctx, []service.Service{discordbot.NewBotService(conf)})
 		sigC := make(chan os.Signal)
 
 		// listen for signals that we want to cancel on, and cancel
