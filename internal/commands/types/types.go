@@ -2,6 +2,7 @@
 package types
 
 import (
+	"github.com/Team-bluekunVRC/discord-bot/ent"
 	"github.com/bwmarrin/discordgo"
 	"github.com/sirupsen/logrus"
 )
@@ -15,5 +16,5 @@ type Command interface {
 	Info() *discordgo.ApplicationCommand
 
 	// Handler is the actual handler logic for this command
-	Handler(logrus.FieldLogger) HandlerFunc
+	Handler(logrus.FieldLogger, *ent.Client) HandlerFunc
 }

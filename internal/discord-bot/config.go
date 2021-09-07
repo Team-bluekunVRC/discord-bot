@@ -14,6 +14,9 @@ type Config struct {
 
 	// BotToken is the Discord token for this bot
 	BotToken string `env:"BOT_TOKEN"`
+
+	// DatabaseURL is the URL to connect to for the database
+	DatabaseURL string `env:"DATABASE_URL"`
 }
 
 // LoadConfig reads the configuration from env variables and returns it

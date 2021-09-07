@@ -1,6 +1,7 @@
 package helloworld
 
 import (
+	"github.com/Team-bluekunVRC/discord-bot/ent"
 	"github.com/Team-bluekunVRC/discord-bot/internal/commands/types"
 	"github.com/bwmarrin/discordgo"
 	"github.com/sirupsen/logrus"
@@ -20,7 +21,7 @@ func (*Command) Info() *discordgo.ApplicationCommand {
 	}
 }
 
-func (*Command) Handler(log logrus.FieldLogger) types.HandlerFunc {
+func (*Command) Handler(log logrus.FieldLogger, _ *ent.Client) types.HandlerFunc {
 	return func(s *discordgo.Session, i *discordgo.InteractionCreate) error {
 		log.Info("hello-world ran")
 

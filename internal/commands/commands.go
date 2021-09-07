@@ -4,6 +4,7 @@ package commands
 import (
 	"context"
 
+	"github.com/Team-bluekunVRC/discord-bot/ent"
 	helloworld "github.com/Team-bluekunVRC/discord-bot/internal/commands/hello-world"
 	"github.com/Team-bluekunVRC/discord-bot/internal/commands/types"
 	"github.com/bwmarrin/discordgo"
@@ -15,19 +16,19 @@ var commands = []types.Command{&helloworld.Command{}}
 
 // Register registers the built-in commands onto the current discord
 // bot
-func Register(ctx context.Context, s *discordgo.Session, log logrus.FieldLogger) error {
+func Register(ctx context.Context, s *discordgo.Session, log logrus.FieldLogger, db *ent.Client) error {
 	commandTable := make(map[string]types.HandlerFunc)
 	for _, c := range commands {
 		command := c.Info().Name
 		log.WithField("command.name", command).Info("building command")
 
 		// map the handler to the actual command table
-		commandTable[command] = c.Handler(log.WithField("command.name", command))
+		commandTable[command] = c.Handler(log.WithField("command.name", command), db)
 
 		// register the command with discord
 		_, err := s.ApplicationCommandCreate(s.State.User.ID, "", c.Info())
 		if err != nil {
-			log.WithError(err).Error("failed to register comamnd")
+			log.WithError(err).Error("failed to register command")
 			return err
 		}
 	}
