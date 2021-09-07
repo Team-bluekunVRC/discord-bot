@@ -8,7 +8,7 @@ require (
 	github.com/caarlos0/env/v6 v6.6.2
 	github.com/getoutreach/gobox v1.11.0
 	github.com/google/uuid v1.3.0
-	github.com/jackc/pgx/v4 v4.6.0
+	github.com/jackc/pgx/v4 v4.13.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/tritonmedia/pkg v0.0.0-20200629230110-aed2f5d2dc17
