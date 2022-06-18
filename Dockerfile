@@ -22,7 +22,7 @@ RUN make dep
 # but also needed to use the package cache above
 RUN make build APP_VERSION=${VERSION}
 
-FROM alpine:3.14
+FROM alpine:3.16
 ENTRYPOINT ["/usr/bin/discord-bot"]
 
 # hadolint ignore=DL3018
